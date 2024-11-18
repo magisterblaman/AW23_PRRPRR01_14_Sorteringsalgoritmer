@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,12 +28,34 @@ namespace AW23_PRRPRR01_14_Sorteringsalgoritmer {
 			}
 		}
 
+		static int MinIndex(int[] inputArray, int startIndex) {
+			int minValue = int.MaxValue;
+			int minIndex = -1;
+			for (int i = startIndex; i < inputArray.Length; i++) {
+				if (inputArray[i] < minValue) {
+					minValue = inputArray[i];
+					minIndex = i;
+				}
+			}
+			return minIndex;
+		}
+
+		static void SelectionSort(int[] inputArray) {
+			for (int i = 0; i < inputArray.Length; i++) {
+				int min = MinIndex(inputArray, i);
+
+				int temp = inputArray[i];
+				inputArray[i] = inputArray[min];
+				inputArray[min] = temp;
+			}
+		}
+
 		static void Main(string[] args) {
 			int[] myArray = new int[] { 7, 5, -3, 1, 5465, 76, 4, 3, -3 };
 
 			Console.WriteLine(IsSorted(myArray));
 
-			BubbleSort(myArray);
+			SelectionSort(myArray);
 
 			Console.WriteLine(IsSorted(myArray));
 
