@@ -50,12 +50,25 @@ namespace AW23_PRRPRR01_14_Sorteringsalgoritmer {
 			}
 		}
 
+		static void InsertionSort(int[] inputArray) {
+			for (int i = 1; i < inputArray.Length; i++) {
+				int value = inputArray[i];
+
+				int j = i - 1;
+				while (j >= 0 && inputArray[j] > value) {
+					inputArray[j + 1] = inputArray[j];
+					j--;
+				}
+				inputArray[j + 1] = value;
+			}
+		}
+
 		static void Main(string[] args) {
 			int[] myArray = new int[] { 7, 5, -3, 1, 5465, 76, 4, 3, -3 };
 
 			Console.WriteLine(IsSorted(myArray));
 
-			SelectionSort(myArray);
+			InsertionSort(myArray);
 
 			Console.WriteLine(IsSorted(myArray));
 
