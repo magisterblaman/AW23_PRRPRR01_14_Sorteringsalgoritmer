@@ -63,8 +63,48 @@ namespace AW23_PRRPRR01_14_Sorteringsalgoritmer {
 			}
 		}
 
+		static int MaxValue(int[] inputArray) {
+			int max = int.MinValue;
+			for (int i = 0; i < inputArray.Length; i++) {
+				if (inputArray[i] > max) {
+					max = inputArray[i];
+				}
+			}
+			return max;
+		}
+
+		static int[] CountingSort(int[] inputArray) {
+			int max = MaxValue(inputArray);
+
+			int[] countingArray = new int[max + 1];
+
+			for (int i = 0; i < inputArray.Length; i++) {
+				int number = inputArray[i];
+				countingArray[number]++;
+			}
+
+			for (int i = 1; i < countingArray.Length; i++) {
+				countingArray[i] += countingArray[i - 1];
+			}
+
+			for (int i = countingArray.Length - 1; i > 0; i--) {
+				countingArray[i] = countingArray[i - 1];
+			}
+			countingArray[0] = 0;
+
+			int[] output = new int[inputArray.Length];
+			for (int i = 0; i < inputArray.Length; i++) {
+				int number = inputArray[i];
+				int index = countingArray[number];
+				output[index] = inputArray[i];
+				countingArray[number]++;
+			}
+
+			return output;
+		}
+
 		static void Main(string[] args) {
-			int[] myArray = new int[] { 7, 5, -3, 1, 5465, 76, 4, 3, -3 };
+			int[] myArray = new int[] { 2, 1, 2, 0, 3, 2, 0 };
 
 			for (int i = 0; i < myArray.Length; i++) {
 				Console.WriteLine(myArray[i]);
@@ -73,7 +113,7 @@ namespace AW23_PRRPRR01_14_Sorteringsalgoritmer {
 
 			Console.WriteLine("====");
 
-			BubbleSort(myArray);
+			myArray = CountingSort(myArray);
 
 			for (int i = 0; i < myArray.Length; i++) {
 				Console.WriteLine(myArray[i]);
